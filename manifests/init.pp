@@ -106,9 +106,16 @@ class gradle(
     require => Archive["/opt/gradle-${version_real}-all.zip"],
   }
 
-  file { '/etc/profile.d/gradle.sh':
+  file { ['/etc/bash', '/etc/bash/bashrc.d']:
+    ensure => directory,
+    mode   => '0755',
+    owner  => 'root'
+  }
+
+  file { '/etc/bash/bashrc.d/gradle.sh':
     ensure  => file,
     mode    => '0644',
     content => template("${module_name}/gradle.sh.erb"),
+    require => file['/etc/bash/bashrc.d']
   }
 }
