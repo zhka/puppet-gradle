@@ -116,6 +116,6 @@ class gradle(
     ensure  => file,
     mode    => '0644',
     content => template("${module_name}/gradle.sh.erb"),
-    require => file['/etc/bash/bashrc.d']
+    require => File['/etc/bash/bashrc.d']
   }
 }
